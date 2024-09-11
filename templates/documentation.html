@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>API Documentation</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        padding: 20px;
+        background-color: #f4f4f4;
+      }
+      h1 {
+        color: #333;
+      }
+      .route {
+        background-color: #fff;
+        border: 1px solid #ddd;
+        padding: 10px;
+        margin-bottom: 10px;
+        border-radius: 5px;
+      }
+      .method {
+        font-weight: bold;
+        color: #2c3e50;
+      }
+      .description {
+        margin-top: 5px;
+      }
+      .example {
+        background-color: #f9f9f9;
+        padding: 10px;
+        border: 1px solid #eee;
+        margin-top: 5px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>AI Chatbot API Documentation</h1>
+
+    {% for route in doc_info['routes'] %}
+    <div class="route">
+      <p class="method">{{ route.method }} <span>/ {{ route.path }}</span></p>
+      <p class="description">{{ route.description }}</p>
+
+      {% if route.example_request %}
+      <div class="example">
+        <strong>Example Request:</strong>
+        <pre>{{ route.example_request }}</pre>
+      </div>
+      {% endif %} {% if route.example_response %}
+      <div class="example">
+        <strong>Example Response:</strong>
+        <pre>{{ route.example_response }}</pre>
+      </div>
+      {% endif %}
+    </div>
+    {% endfor %}
+  </body>
+</html>
