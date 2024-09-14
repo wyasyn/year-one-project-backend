@@ -198,7 +198,7 @@ def manage_communications():
         return jsonify({"error": "An error occurred while managing communications."}), 500
 
 
-@app.route("/communications/<int:id>", methods=["PUT", "DELETE"])
+@app.route("/communications/<int:id>", methods=["PUT", "DELETE", "GET"])
 def modify_communication(id):
     try:
         communication = ImportantCommunication.query.get_or_404(id)
@@ -215,6 +215,14 @@ def modify_communication(id):
             db.session.delete(communication)
             db.session.commit()
             return jsonify({"message": "Communication deleted!"}), 200
+        
+        elif request.method == "GET":
+            return jsonify({
+                "id": communication.id,
+                "title": communication.title,
+                "message": communication.message,
+                "date_posted": communication.date_posted.isoformat()
+            }), 200
 
     except Exception as e:
         logging.error(f"Error in /communications/<int:id>: {str(e)}")
